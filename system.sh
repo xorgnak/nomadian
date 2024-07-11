@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo \'$(screen -Dr || screen)\' > /usr/bin/nomad
+echo '$(screen -Dr || screen)' > /usr/bin/nomad
 
 chmod +x /usr/bin/nomad
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 chmod +x system.sh
-sudo ./system.sh
+sudo su -c 'source system.sh'
 
 rm -fR ~/.nomad
 mkdir ~/.nomad

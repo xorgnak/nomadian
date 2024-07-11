@@ -6,6 +6,9 @@ sudo su -c 'source system.sh'
 rm -fR ~/.nomad
 mkdir ~/.nomad
 
+echo 'echo "[NOMAD][BEGIN] `date`"' > ~/.nomad/00_event.sh
+echo 'echo "[NOMAD][READY] `date`"' > ~/.nomad/99_event.sh
+
 cat << 'EOF' > ~/.screenrc
 shell -/bin/bash
 caption always "[ %H ] %w"

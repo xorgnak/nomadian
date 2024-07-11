@@ -175,3 +175,8 @@ echo 'echo "##### READY"' >> ~/.nomadrc
 echo 'source .nomadrc' >> ~/.bashrc
 echo "[NOMAD] ##### add nomadic services to ~/.screenrc"
 echo "[NOMAD] ##### nomad installed #####"
+
+for f in $*
+do
+  source $f
+done

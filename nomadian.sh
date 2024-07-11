@@ -1,7 +1,7 @@
 #!/bin/bash
-PKGS_STD='sudo git screen ruby-full emacs-nox mosquitto mosquitto-clients';
 
-sudo su -c "echo \'$(screen -Dr || screen)\' > /usr/bin/nomad && chmod +x /usr/bin/nomad && apt update && apt upgrade -y && apt install -y $PKGS_STD"
+chmod +x system.sh
+sudo ./system.sh
 
 rm -fR ~/.nomad
 mkdir ~/.nomad

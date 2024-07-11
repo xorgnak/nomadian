@@ -1,31 +1,12 @@
-
-
+#!/bin/bash
 PKGS_STD='screen ruby-full emacs-nox mosquitto mosquitto-clients';
-PKGS_GUI='xinit xorg xterm awesome awesome-extras'
 
-eUID=`id -u`
-if [ $eUID -eq 0 ]; then
-    echo '$(screen -Dr || screen)' > /usr/bin/nomad
-    chmod +x /usr/bin/nomad
-    if [ "$1" != "--bare" ]; then
-        ping -c 3 google.com
+sudo su -c 'echo \'$(screen -Dr || screen)\' > /usr/bin/nomad && chmod +x /usr/bin/nomad && apt update && apt upgrade -y && apt install -y $PKGS_STD'
 
-        sudo apt update
+rm -fR ~/.nomad
+mkdir ~/.nomad
 
-        sudo apt upgrade -y
-        if [[ "$1" == "--gui" ]]; then
-            sudo apt install -y $PKGS_STD $PKGS_GUI
-        else
-            sudo apt install -y $PKGS_STD
-        fi
-    fi
-    echo "***** nomad installed *****"
-else
-if [[ ! -d ~/.nomad ]]; then
-
-    mkdir ~/.nomad
-
-    cat <<EOF > ~/.screenrc
+cat << 'EOF' > ~/.screenrc
 shell -/bin/bash
 caption always "[ %H ] %w"
 defscrollback 1024
@@ -37,7 +18,7 @@ screen -t '>' 1 /bin/bash
 select 1
 EOF
 
-    cat << 'END' > ~/.prompt
+cat << 'END' > ~/.prompt
 #  Customize BASH PS1 prompt to show current GIT repository and branch.
 #  by Mike Stewart - http://MediaDoneRight.com
 #  SETUP CONSTANTS
@@ -145,7 +126,7 @@ fi)'
 
 END
 
-    cat << END > ~/.icon
+cat << 'END' > ~/.icon
 ######  ####################
 #####    ###################
 #####    ########  +########
@@ -170,33 +151,27 @@ END
 ######  # ###: ## .# ###  ##
 END
 
-    cat << END > ~/.logo
+cat << 'END' > ~/.logo
 ####### NOMADIC LINUX ######
 END
 
-    cat << END > ~/.motd
+cat << 'END' > ~/.motd
 `cat ~/.icon`
 `cat ~/.logo`
 No warranty. No help. May the force be with you.
 END
     
-    echo 'echo "#####> OK"' > ~/.nomadrc
-    echo 'source ~/.prompt' >> ~/.nomadrc
-    echo 'echo "##### prompt"' >> ~/.nomadrc
-    echo 'for f in ~/.nomad/*' >> ~/.nomadrc
-    echo 'do' >> ~/.nomadrc
-    echo 'chmod +x $f' >> ~/.nomadrc
-    echo 'source $f' >> ~/.nomadrc
-    echo 'done' >> ~/.nomadrc
-    echo 'echo "##### nomad"' >> ~/.nomadrc
-    echo 'cat ~/.motd' >> ~/.nomadrc
-    echo 'echo "##### READY"' >> ~/.nomadrc
-    echo 'source .nomadrc' >> ~/.bashrc
-    sudo echo '$(screen -Dr || screen)' > /usr/bin/nomad
-    sudo chmod +x /usr/bin/nomad
-    echo "##### add nomadic services to ~/.screenrc"
-    echo "##### nomad installed #####"
-else
-	emacs ~/.nomadrc
-fi
-fi
+echo 'echo "#####> OK"' > ~/.nomadrc
+echo 'source ~/.prompt' >> ~/.nomadrc
+echo 'echo "##### prompt"' >> ~/.nomadrc
+echo 'for f in ~/.nomad/*' >> ~/.nomadrc
+echo 'do' >> ~/.nomadrc
+echo 'chmod +x $f' >> ~/.nomadrc
+echo 'source $f' >> ~/.nomadrc
+echo 'done' >> ~/.nomadrc
+echo 'echo "##### nomad"' >> ~/.nomadrc
+echo 'cat ~/.motd' >> ~/.nomadrc
+echo 'echo "##### READY"' >> ~/.nomadrc
+echo 'source .nomadrc' >> ~/.bashrc
+echo "[NOMAD] ##### add nomadic services to ~/.screenrc"
+echo "[NOMAD] ##### nomad installed #####"

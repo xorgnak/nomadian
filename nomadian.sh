@@ -183,20 +183,18 @@ cat << 'END' > ~/.motd
 - No help.
 - May the force be with you.
 END
-    
-echo 'echo "#####> OK"' > ~/.nomadrc
-echo 'source ~/.prompt' >> ~/.nomadrc
-echo 'echo "##### prompt"' >> ~/.nomadrc
-echo 'for f in ~/.nomad/*' >> ~/.nomadrc
-echo 'do' >> ~/.nomadrc
-echo 'chmod +x $f' >> ~/.nomadrc
-echo 'source $f' >> ~/.nomadrc
-echo 'done' >> ~/.nomadrc
-echo 'echo "##### nomad"' >> ~/.nomadrc
-echo 'cat ~/.motd' >> ~/.nomadrc
-echo 'echo "##### READY"' >> ~/.nomadrc
-echo 'source .nomadrc' >> ~/.bashrc
-echo "[NOMAD] ##### add nomadic services to ~/.screenrc"
+
+cat << 'EOF' > ~/.nomadrc
+source ~/.prompt
+for f in ~/.nomad/*
+do
+  source $f
+done
+cat ~/.motd
+EOF
+
+echo 'source ~/.nomadrc' >> ~/.bashrc
+echo "[NOMAD] ##### add nomadic services to ~/.screenrc to begin when user logs in."
 echo "[NOMAD] ##### nomad installed #####"
 
 for f in $*

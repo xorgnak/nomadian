@@ -189,6 +189,7 @@ END
 
 cat << 'EOF' > ~/.nomadrc
 source ~/.prompt
+rm -fR ~/.nomad/*~
 for f in ~/.nomad/*
 do
   source $f
